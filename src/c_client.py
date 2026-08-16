@@ -1046,7 +1046,7 @@ def _c_serialize_helper_list_field(context, self, field,
         elif 'serialize' == context:
             code_lines.append('%s    xcb_parts[xcb_parts_idx].iov_len = 0;' % space)
             code_lines.append('%s    xcb_tmp = (char *) %s%s;' % (space, prefix_str, field.c_field_name))
-            code_lines.append('%s    for(i=0; i<%s; i++) { ' % (space, list_length))
+            code_lines.append('%s    for(i=0; i<%s; i++) {' % (space, list_length))
             code_lines.append('%s        xcb_block_len = %s(xcb_tmp%s);' % (space, field.type.c_sizeof_name, member_arg_str))
             code_lines.append('%s        xcb_parts[xcb_parts_idx].iov_len += xcb_block_len;' % space)
             code_lines.append('%s    }' % space)
@@ -2306,7 +2306,7 @@ def _c_request_helper(self, name, void, regular, aux=False, reply_fds=False):
             for name in param_names:
                 desc = desc.replace('`%s`' % name, '\\a %s' % (name))
             desc = desc.split("\n")
-            _h(' * ' + "\n * ".join(desc))
+            _h(' * ' + "\n * ".join(desc).replace(" \n", "\n"))
         else:
             _h(' * No description yet')
     else:
